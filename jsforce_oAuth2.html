@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsforce/1.9.1/jsforce.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsforce/1.9.1/jsforce-api-bulk.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsforce/1.9.1/jsforce-core.min.js"></script>
+  <script>
+    var clientId = prompt("What is the clientId of your salesforce connected app?", "3MVG9n_HvETGhr3AYFibhjIGf.XwlA_YQzdChKF.cKQU56DdzHKRsFt7kiGbrO7tgH_PnFC.Gs9joxotHYUXW");
+    console.log(clientId);
+    var redirectUri = prompt("What is the redirectUri of your salesforce connected app?", "https://login.salesforce.com/services/oauth2/success");
+    console.log(redirectUri);
+    jsforce.browser.init({
+     clientId: this.clientId,
+     redirectUri: this.redirectUri
+     });
+
+jsforce.browser.on('connect', function(conn) {
+  conn.query('SELECT Id, Name FROM Account', function(err, res) {
+    if (err) { return console.error(err); }
+    console.log(res);
+  });
+});
+  </script>
+</head>
+<body>
+  <body>
+    <div>
+      <h1> "Click Login to sign-in to your salesforce environment via OAuth2" </h1>
+      <button id="loginBtn2" onclick="javascript:jsforce.browser.login();">Login</button>
+    </div>
+  </body>
+</html>
